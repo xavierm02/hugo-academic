@@ -8,6 +8,12 @@
 {{ else }}
   {{ $page = .File.Path }}
 {{ end }}
+
+{{ $page_widget_page := path.Join (path.Dir .File.Path) "/widgets/index.md" }}
+{{ if (fileExists $page_widget_page) }}
+  {{ $page = $page_widget_page }}
+{{ end }}
+
 {{ $headless_bundle := site.GetPage $page }}
 {{/* Check homepage exists */}}
 {{ if not $headless_bundle }}
